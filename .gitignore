@@ -1,0 +1,22 @@
+# Default ignored files
+target
+test-output
+.classpath
+.project
+.settings
+.DS_Store
+.sts4-cache
+**/.DS_Store
+
+/shelf/
+/.idea/workspace.xml
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
