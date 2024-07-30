@@ -8,15 +8,13 @@ test-output
 .sts4-cache
 **/.DS_Store
 
-/shelf/
-/.idea/workspace.xml
 ### IntelliJ IDEA ###
-.idea
+.idea/*
 *.iws
 *.iml
 *.ipr
 
-target/
+target/*
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
