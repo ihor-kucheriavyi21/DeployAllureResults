@@ -11,14 +11,19 @@ RUN mvn dependency:go-offline -B
 # Copy the rest of the project
 COPY src ./src
 
-# Install dependencies for Selenium (e.g., Chrome and ChromeDriver)
+# Use an Ubuntu image as a parent image to include apt-get
+FROM ubuntu:22.04
+
+# Install Java 17, wget, unzip, and Chrome dependencies
 RUN apt-get update && \
-    apt-get install -y wget unzip && \
+    apt-get install -y wget unzip openjdk-17-jre && \
     wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/91.0.4472.19/chromedriver_linux64.zip && \
     unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
     rm /tmp/chromedriver.zip && \
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+    dpkg -i google-chrome-stable_current_amd64.deb && \
+    apt-get -fy install && \
+    rm google-chrome-stable_current_amd64.deb
 
 # Set the environment variable for ChromeDriver
 ENV PATH /usr/local/bin:$PATH
