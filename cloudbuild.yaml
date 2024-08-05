@@ -13,3 +13,5 @@ steps:
     env:
       - 'LT_USERNAME=${_LT_USERNAME}'
       - 'LT_ACCESS_KEY=${_LT_ACCESS_KEY}'
+options:
+  logging: CLOUD_LOGGING_ONLY
