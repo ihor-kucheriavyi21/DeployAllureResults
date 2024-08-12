@@ -6,13 +6,13 @@ import org.testng.annotations.Test;
 import page.GooglePage;
 import web.BaseWebTest;
 
-public class GoogleTest {
+public class GoogleTest extends BaseWebTest {
 
   @Description("GoogleSearchPositiveTest")
   @Test
   public void googleSearchPositiveTest() {
-//    GooglePage googlePage = new GooglePage();
-    Assert.assertTrue(true, "Google logo should be displayed");
+    GooglePage googlePage = new GooglePage();
+    Assert.assertTrue(googlePage.isPageLogoDisplayed(), "Google logo should be displayed");
   }
 
   @Test
