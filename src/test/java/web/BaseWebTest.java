@@ -1,13 +1,13 @@
 package web;
 
-import static com.codeborne.selenide.Selenide.open;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeClass;
 
 public abstract class BaseWebTest {
+
+  public WebDriver driver;
 
   @BeforeClass
   public void openSession() {
@@ -17,7 +17,7 @@ public abstract class BaseWebTest {
     options.addArguments("--disable-dev-shm-usage");
     options.addArguments("--disable-gpu");
     options.addArguments("--remote-debugging-pipe");
-    WebDriver driver = new ChromeDriver(options);
-    open("https://www.google.com/");
+    driver = new ChromeDriver(options);
+    driver.navigate().to("https://www.google.com/");
   }
 }
