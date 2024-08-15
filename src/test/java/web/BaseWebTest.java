@@ -22,12 +22,10 @@ public abstract class BaseWebTest {
     options.addArguments("--remote-debugging-pipe");
     driver = new ChromeDriver(options);*/
     // Set the path to the Geckodriver
-    if (driver == null) {
-      FirefoxOptions options = new FirefoxOptions();
-      options.addArguments("--headless");
-      // Initialize the FirefoxDriver
-      driver = new FirefoxDriver(options);
-    }
+    FirefoxOptions options = new FirefoxOptions();
+    options.addArguments("--headless");
+    // Initialize the FirefoxDriver
+    driver = new FirefoxDriver(options);
     driver.navigate().to("https://www.google.com/");
   }
 
