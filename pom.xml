@@ -12,35 +12,86 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <allure.version>2.24.0</allure.version>
+    <aspectj.version>1.9.22</aspectj.version>
   </properties>
 
   <dependencies>
+    <!-- Selenium dependency -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.23.0</version> <!-- Ensure this matches your desired version -->
+      <version>4.23.0</version>
     </dependency>
+
+    <!-- TestNG dependency -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>7.10.2</version>
-      <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
-    <dependency>
-      <groupId>io.qameta.allure</groupId>
-      <artifactId>allure-maven</artifactId>
-      <version>2.8</version>
-    </dependency>
-    <dependency>
-      <groupId>io.qameta.allure</groupId>
-      <artifactId>allure-java-commons</artifactId>
-      <version>2.24.0</version>
-    </dependency>
+
+    <!-- Allure TestNG dependency -->
     <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-testng</artifactId>
-      <version>2.24.0</version>
+      <version>${allure.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20230227</version>
+    </dependency>
+
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <testFailureIgnore>false</testFailureIgnore>
+          <argLine>
+            -Dfile.encoding=${project.build.sourceEncoding}
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+          </argLine>
+          <properties>
+            <property>
+              <name>listener</name>
+              <value>io.qameta.allure.testng.AllureTestNg</value>
+            </property>
+          </properties>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.10.0</version>
+        <configuration>
+          <reportVersion>${allure.version}</reportVersion>
+          <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <release>17</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
